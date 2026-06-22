@@ -19,7 +19,7 @@ trap cleanup EXIT
 
 # --- Konfigurasi ---
 VERSION="v1.0.0"
-SOURCE_DIR="SaaS"                           # Nama folder source
+SOURCE_DIR="."                             # Nama folder source (root repo)
 TEMP_DIR="nexify"                            # Nama folder temporary
 OUTPUT_FILE="nexify-saas-${VERSION}.zip"     # Nama file ZIP output
 
