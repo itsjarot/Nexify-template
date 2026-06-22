@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Halaman Tidak Ditemukan | Nexify</title>
+  <meta name="description" content="Halaman yang Anda cari tidak ada atau telah dipindahkan. Mari kita kembali ke jalur yang benar.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nexify.io/404">
+  <meta property="og:title" content="404 — Halaman Tidak Ditemukan | Nexify">
+  <meta property="og:description" content="Halaman yang Anda cari tidak ada atau telah dipindahkan. Mari kita kembali ke jalur yang benar.">
+  <meta property="og:image" content="assets/images/og-image.svg">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:site_name" content="Nexify">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@nexify">
+  <meta name="twitter:title" content="404 — Halaman Tidak Ditemukan | Nexify">
+  <meta name="twitter:description" content="Halaman yang Anda cari tidak ada atau telah dipindahkan.">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://nexify.io/404">
+
+  <!-- Sitemap hint -->
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ======= SIMPLIFIED NAVBAR ======= -->
+  <nav class="navbar" id="navbar" aria-label="Navigasi utama">
+    <div class="container">
+      <a href="./" class="nav-logo">
+        <div class="nav-logo-icon">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <span>Nexify</span>
+      </a>
+      <a href="./" class="nav-back-link">
+        <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
+      </a>
+    </div>
+  </nav>
+
+  <!-- ======= 404 CONTENT ======= -->
+  <main class="error-page">
+    <div class="error-page-glow" aria-hidden="true"></div>
+    <div>
+      <div class="error-code">404</div>
+      <h1>Tersesat di kehampaan?</h1>
+      <p>
+        Maaf, halaman yang Anda cari tidak ada atau telah dipindahkan.
+        Mari kita kembali ke jalur yang benar.
+      </p>
+      <div class="error-actions">
+        <a href="./" class="btn-primary">
+          <i class="fa-solid fa-house"></i>
+          Kembali ke Beranda
+        </a>
+        <a href="login.html" class="btn-secondary">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          Masuk
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const navbar = document.getElementById('navbar');
+      let scrollTicking = false;
+      window.addEventListener('scroll', function () {
+        if (!scrollTicking) {
+          window.requestAnimationFrame(function () {
+            navbar.classList.toggle('scrolled', window.scrollY > 40);
+            scrollTicking = false;
+          });
+          scrollTicking = true;
+        }
+      }, { passive: true });
+    });
+  </script>
+</body>
+</html>

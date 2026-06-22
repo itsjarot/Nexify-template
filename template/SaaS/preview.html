@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexify — Preview Template</title>
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f6fa;
+      color: #1a1a2e;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== Header ===== */
+    .preview-header {
+      background: linear-gradient(135deg, #0b0b12 0%, #1a1a2e 100%);
+      color: #fff;
+      text-align: center;
+      padding: 56px 24px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .preview-header .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+
+    .preview-header .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .preview-header .logo span {
+      background: linear-gradient(135deg, #f1f1f7, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .preview-header h1 {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #8888a0;
+      margin-bottom: 20px;
+    }
+
+    .preview-header .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .preview-header .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(139,92,246,0.12);
+      border: 1px solid rgba(139,92,246,0.2);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #a78bfa;
+    }
+
+    /* ===== Action Buttons ===== */
+    .preview-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 28px 24px;
+      flex-wrap: wrap;
+      background: #fff;
+      border-bottom: 1px solid #e8e8ee;
+    }
+
+    .preview-actions .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .preview-actions .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .preview-actions .btn-primary {
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(139,92,246,0.3);
+    }
+
+    .preview-actions .btn-primary:hover {
+      box-shadow: 0 8px 24px rgba(139,92,246,0.4);
+    }
+
+    .preview-actions .btn-secondary {
+      background: transparent;
+      color: #1a1a2e;
+      border: 1px solid #d0d0db;
+    }
+
+    .preview-actions .btn-secondary:hover {
+      background: #f0f0f5;
+      border-color: #8b5cf6;
+    }
+
+    /* ===== Section Label ===== */
+    .preview-section-label {
+      text-align: center;
+      padding: 32px 24px 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #8888a0;
+    }
+
+    /* ===== Thumbnail Grid ===== */
+    .preview-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 24px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .preview-card {
+      background: #fff;
+      border: 1px solid #e8e8ee;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .preview-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+
+    .preview-card .thumb-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #0b0b12;
+      position: relative;
+    }
+
+    .preview-card .thumb-container iframe {
+      width: 1200px;
+      height: 675px;
+      border: none;
+      transform: scale(0.35);
+      pointer-events: none;
+      flex-shrink: 0;
+    }
+
+    /* Gradient border overlay — bikin thumbnail keliatan batasnya */
+    .preview-card .thumb-container::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      border-radius: 12px 12px 0 0;
+      pointer-events: none;
+      box-shadow: inset 0 0 30px rgba(139, 92, 246, 0.03);
+    }
+
+    .preview-card .card-label {
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1a1a2e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preview-card .card-label .section-tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #8b5cf6;
+      background: rgba(139,92,246,0.08);
+      padding: 2px 10px;
+      border-radius: 100px;
+    }
+
+    /* ===== Footer ===== */
+    .preview-footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.85rem;
+      color: #8888a0;
+      border-top: 1px solid #e8e8ee;
+      background: #fff;
+    }
+
+    .preview-footer a {
+      color: #8b5cf6;
+      text-decoration: none;
+    }
+
+    .preview-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .preview-grid { grid-template-columns: 1fr; }
+      .preview-header { padding: 40px 20px 36px; }
+      .preview-header .logo { font-size: 1.4rem; }
+      .preview-actions .btn { width: 100%; justify-content: center; }
+    }
+
+    /* ===== Loading Shimmer ===== */
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .preview-card .thumb-container {
+      background: linear-gradient(135deg, #0b0b12, #14142a, #0b0b12);
+      background-size: 200% 200%;
+      animation: shimmer 3s ease infinite;
+    }
+
+    /* When iframe loads, it covers the shimmer naturally */
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="preview-header">
+    <div class="logo">
+      <div class="logo-icon">
+        <!-- Bolt icon -->
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff">
+          <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+        </svg>
+      </div>
+      <span>Nexify</span>
+    </div>
+    <h1>Modern SaaS Landing Page Template — Dark Theme</h1>
+    <div class="badge-group">
+      <span class="badge">
+        <!-- Moon icon -->
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        Dark Mode
+      </span>
+      <span class="badge">
+        <!-- Device icon -->
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18" stroke="currentColor" stroke-width="2.5"/></svg>
+        Fully Responsive
+      </span>
+      <span class="badge">
+        <!-- Bolt icon -->
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        Vanilla JS
+      </span>
+      <span class="badge">
+        <!-- Palette icon -->
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/></svg>
+        Purple Accent
+      </span>
+      <span class="badge">
+        <!-- Accessibility icon -->
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="2"/><path d="M10 22v-5l-1-1-2-3-2 1"/><path d="M14 22v-4l2-4h5"/><path d="M12 13h4"/></svg>
+        Aksesibel
+      </span>
+    </div>
+  </header>
+
+  <!-- ===== ACTION BUTTONS ===== -->
+  <div class="preview-actions">
+    <a href="index.html" class="btn btn-primary" target="_blank">
+      <!-- Eye icon -->
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      Lihat Demo Lengkap
+    </a>
+    <a href="login.html" class="btn btn-secondary" target="_blank">
+      <!-- Lock icon -->
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      Halaman Login
+    </a>
+    <a href="404.html" class="btn btn-secondary" target="_blank">
+      <!-- X icon -->
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Halaman 404
+    </a>
+  </div>
+
+  <!-- ===== SECTION PREVIEWS ===== -->
+  <div class="preview-section-label">
+    <!-- File icon -->
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    Preview Setiap Bagian
+  </div>
+
+  <div class="preview-grid">
+
+    <!-- Hero -->
+    <div class="preview-card">
+      <div class="thumb-container">
+        <iframe src="index.html#hero" loading="lazy" sandbox="allow-scripts allow-same-origin" title="Hero Section"></iframe>
+      </div>
+      <div class="card-label">
+        <span>
+          <!-- Home icon -->
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Hero
+        </span>
+        <span class="section-tag">#hero</span>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="preview-card">
+      <div class="thumb-container">
+        <iframe src="index.html#features" loading="lazy" sandbox="allow-scripts allow-same-origin" title="Features Section"></iframe>
+      </div>
+      <div class="card-label">
+        <span>
+          <!-- Gear icon -->
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.32 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          Features
+        </span>
+        <span class="section-tag">#features</span>
+      </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="preview-card">
+      <div class="thumb-container">
+        <iframe src="index.html#how-it-works" loading="lazy" sandbox="allow-scripts allow-same-origin" title="How It Works Section"></iframe>
+      </div>
+      <div class="card-label">
+        <span>
+          <!-- Clipboard icon -->
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+          Cara Kerja
+        </span>
+        <span class="section-tag">#how-it-works</span>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="preview-card">
+      <div class="thumb-container">
+        <iframe src="index.html#pricing" loading="lazy" sandbox="allow-scripts allow-same-origin" title="Pricing Section"></iframe>
+      </div>
+      <div class="card-label">
+        <span>
+          <!-- Dollar icon -->
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          Pricing
+        </span>
+        <span class="section-tag">#pricing</span>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="preview-card">
+      <div class="thumb-container">
+        <iframe src="index.html#testimonials" loading="lazy" sandbox="allow-scripts allow-same-origin" title="Testimonials Section"></iframe>
+      </div>
+      <div class="card-label">
+        <span>
+          <!-- Star icon -->
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align:middle;margin-right:4px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Testimonials
+        </span>
+        <span class="section-tag">#testimonials</span>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="preview-card">
+      <div class="thumb-container">
+        <iframe src="index.html#faq" loading="lazy" sandbox="allow-scripts allow-same-origin" title="FAQ Section"></iframe>
+      </div>
+      <div class="card-label">
+        <span>
+          <!-- Help circle icon -->
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17" stroke="currentColor" stroke-width="2.5"/></svg>
+          FAQ
+        </span>
+        <span class="section-tag">#faq</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="preview-footer">
+    <p>
+      <strong>Nexify</strong> &mdash; Template landing page SaaS dengan dark theme violet.<br>
+      Dibangun dengan
+      <!-- Heart icon -->
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="#ef4444" style="vertical-align:middle;margin:0 2px"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      template siap untuk dijual</a>.
+    </p>
+  </footer>
+
+</body>
+</html>
