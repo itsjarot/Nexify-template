@@ -8,7 +8,7 @@
 
 Template landing page SaaS dengan tema gelap (_dark mode_) premium, dibangun dengan HTML, CSS, dan JavaScript murni. Tanpa ketergantungan framework. Siap di-deploy.
 
-![Pratinjau](assets/images/og-image.svg)
+![Pratinjau](assets/images/og-image.png)
 
 ---
 
